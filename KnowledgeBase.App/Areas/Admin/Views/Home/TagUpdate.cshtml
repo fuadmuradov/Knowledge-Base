@@ -1,0 +1,72 @@
+﻿@model PublicationTagVM
+@{
+    List<PublicationTagGetDto> publicationTags = ViewBag.PublicationTags;
+    PublicationGetDto publication = ViewBag.Publication;
+    int temp = 0;
+}
+ <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Publication Create</h5>
+              <!-- General Form Elements -->
+              <div asp-validation-summary="ModelOnly"></div>
+              <form method="post" enctype="multipart/form-data">
+              
+                  <div class="row mb-3">
+                
+                  <div class="col-sm-10">
+                    <input asp-for="PublicationId" type="hidden" value="@publication.Id" class="form-control">
+                  </div>
+                
+                </div>
+               
+                  <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Publication</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" value="@publication.FileName" readonly>
+                  </div>
+                 
+                </div>
+     
+                                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Select Multi Tag</label>
+                  <div class="col-sm-10">
+                    <select asp-for="TagIds" class="form-select" multiple>
+                      @{
+                            foreach (var item in ViewBag.Tags)
+                            {
+
+
+                                @if (temp < publicationTags.Count && item.Id == publicationTags.Skip(temp).FirstOrDefault().Tag.Id)
+                                {
+                                    <option value="@item.Id" selected>@item.Name</option>
+                                    temp++;
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                  </div>
+                </div>
+
+            
+                   <div class="row mb-3">
+                  <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                  </div>
+                </div>
+              </form><!-- End General Form Elements -->
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>

@@ -1,0 +1,135 @@
+﻿@model List<AuthorGetDto>
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Authors</h5>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCreate">
+                 Add new Author
+                </button>
+                    <!-- Table with stripped rows -->
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Created Time</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.Id</th>
+                                    <td>@item.Name</td>
+                                    <td>@item.CreatedAt.ToLocalTime().ToString("yyyy.MM.dd HH.mm")</td>
+                        
+                                    <td>
+                                        <a asp-action="AuthorDelete" asp-controller="Author" asp-area="admin" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')"><i class="bi bi-eraser-fill"></i></a>
+                                        <a data-id="@item.Id" class="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalEdit"><i class="bi bi-credit-card-2-front"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+                           
+
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Create Modal -->
+<div class="modal fade" id="ModalCreate" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Author Fullname</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" asp-area="admin" asp-action="AuthorCreate" asp-controller="author" id="AuthorCreate">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="font-weight-600"> Author FullName:</label>
+                            <input class="form-control" name="aName"><br />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="AuthorCreate" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div><!-- End Create Modal-->
+<!-- Edit Modal -->
+<div class="modal fade" id="ModalEdit" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Author Fullname</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" asp-area="admin" asp-action="AuthorEdit" asp-controller="author" id="AuthorEdit">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="font-weight-600"> Author FullName:</label>
+                            <input class="form-control" id="editCategoryName" name="aName"><br />
+                        </div>
+                        <div class="form-group">
+
+                            <input type="hidden" class="form-control" id="editId" name="aId"><br />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="AuthorEdit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div><!-- End Edit Modal-->
+@section Scripts{
+
+    <script src="assets/dist/js/pages/forms-basic.active.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(() => {
+            $(document).on('click', '.btnEdit', (e) => {
+                const id = $(e.currentTarget).data('id');
+                $.ajax({
+                    url: `/Admin/Author/AuthorGet/${id}`,
+                    type: 'GET',
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 404) {
+                            alert('tapilmadi')
+                        } else {
+                            console.log(response);
+                            $('#editCategoryName').val(response.name);
+                            $('#editId').val(response.id);
+                        }
+                    }
+                });
+            });
+
+        })
+    </script>
+
+}

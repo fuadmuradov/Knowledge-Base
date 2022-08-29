@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  knowledgebase.app:
+    image: ${DOCKER_REGISTRY-}knowledgebaseapp
+    build:
+      context: .
+      dockerfile: KnowledgeBase.App/Dockerfile
+
+  knowledgebase.api:
+    image: ${DOCKER_REGISTRY-}knowledgebaseapi
+    build:
+
+      context: .
+      dockerfile: KnowledgeBase.API/Dockerfile
+  redis:
+   image: redis
+    

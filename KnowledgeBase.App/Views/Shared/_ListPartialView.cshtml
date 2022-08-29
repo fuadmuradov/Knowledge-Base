@@ -1,0 +1,30 @@
+﻿
+@model List<PublicationGetDto>
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Country</th>
+            <th>Organization</th>
+            <th>Topic</th>
+            <th>DocumentType</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td><a target="_blank" href="~/files/@item.FilePath">@item.FileName</a></td>
+                <td>@item.Author.Name</td>
+                <td>@item.Country.Name</td>
+                <td>@item.Organization.Name</td>
+                <td>@item.Topic.Name</td>
+                <td>@item.DocumentType.TypeName</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

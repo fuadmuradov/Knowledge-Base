@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>KnowledgeBase</title>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700ii%7CRoboto:300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/ion.rangeSlider.css">
+    <link rel="stylesheet" href="~/assets/css/ion.rangeSlider.skinFlat.css">
+    <link rel="stylesheet" href="~/assets/css/jquery.bxslider.css">
+    <link rel="stylesheet" href="~/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="~/assets/css/flexslider.css">
+    <link rel="stylesheet" href="~/assets/css/swiper.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/media.css">
+    @RenderSection("Css", required: false)
+
+</head>
+<body>
+
+
+    <!-- Main Content - start -->
+    <main>
+        <section class="container">
+
+            <h1 class="main-ttl"><span>KnowledgeBase</span></h1>
+            @RenderBody()
+        </section>
+    </main>
+    <!-- Main Content - end -->
+    <!-- jQuery plugins/scripts - start -->
+    <script src="~/assets/js/jquery-1.11.2.min.js"></script>
+    <script src="~/assets/js/jquery.bxslider.min.js"></script>
+    <script src="~/assets/js/fancybox/fancybox.js"></script>
+    <script src="~/assets/js/fancybox/helpers/jquery.fancybox-thumbs.js"></script>
+    <script src="~/assets/js/jquery.flexslider-min.js"></script>
+    <script src="~/assets/js/swiper.jquery.min.js"></script>
+    <script src="~/assets/js/jquery.waypoints.min.js"></script>
+    <script src="~/assets/js/progressbar.min.js"></script>
+    <script src="~/assets/js/ion.rangeSlider.min.js"></script>
+    <script src="~/assets/js/chosen.jquery.min.js"></script>
+    <script src="~/assets/js/jQuery.Brazzers-Carousel.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhAYvx0GmLyN5hlf6Uv_e9pPvUT3YpozE"></script>
+    <script src="~/assets/js/gmap.js"></script>
+    @RenderSection("Scripts", required: false)
+    <!-- jQuery plugins/scripts - end -->
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter42088244 = new Ya.Metrika({ id: 42088244, clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "../mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script> <noscript><div><img src="https://mc.yandex.ru/watch/42088244" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+
+</body>
+
+</html>

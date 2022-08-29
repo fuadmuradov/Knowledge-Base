@@ -1,0 +1,95 @@
+﻿  @model PublicationPostVM
+  <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Publication Create</h5>
+              <!-- General Form Elements -->
+              <div asp-validation-summary="ModelOnly"></div>
+              <form method="post" enctype="multipart/form-data">
+              
+                  <div class="row mb-3">
+                  <label asp-for="Year" class="col-sm-2 col-form-label">Year</label>
+                  <div class="col-sm-10">
+                    <input asp-for="Year" type="text" class="form-control">
+                  </div>
+                  <span asp-validation-for="Year"></span>
+                </div>
+               
+     
+
+                <div class="row mb-3">
+                  <label asp-for="AuthorId" class="col-sm-2 col-form-label">Select Author</label>
+                  <div class="col-sm-10">
+                    <select asp-for="AuthorId" class="form-select" asp-items="@(new SelectList(ViewBag.Authors, "Id", "Name"))" >
+                      <option selected>Open Author select menu</option>
+                    </select>
+                  </div>
+                   <span asp-validation-for="AuthorId"></span>
+                </div>
+
+                  <div class="row mb-3">
+                  <label asp-for="CountryId" class="col-sm-2 col-form-label">Select Country</label>
+                  <div class="col-sm-10">
+                    <select asp-for="CountryId" class="form-select" asp-items="@(new SelectList(ViewBag.Countries, "Id", "Name"))" >
+                      <option selected>Open Country select menu</option>
+                    </select>
+                  </div>
+                  <span asp-validation-for="CountryId"></span>
+                </div>
+
+                  <div class="row mb-3">
+                  <label asp-for="OrganizationId" class="col-sm-2 col-form-label">Select Organization </label>
+                  <div class="col-sm-10">
+                    <select asp-for="OrganizationId" class="form-select" asp-items="@(new SelectList(ViewBag.Organizations, "Id", "Name"))" >
+                      <option selected>Open Organization select menu</option>
+                    </select>
+                  </div>
+                  <span asp-validation-for="OrganizationId"></span>
+                </div>
+
+                  <div class="row mb-3">
+                  <label asp-for="DocumentTypeId" class="col-sm-2 col-form-label">Select Document Type</label>
+                  <div class="col-sm-10">
+                    <select asp-for="DocumentTypeId" class="form-select" asp-items="@(new SelectList(ViewBag.DocumentTypes, "Id", "TypeName"))" >
+                      <option selected>Open Document Type select menu</option>
+                    </select>
+                  </div>
+                  <span asp-validation-for="DocumentTypeId"></span>
+                </div>
+
+                 <div class="row mb-3">
+                  <label asp-for="TopicId" class="col-sm-2 col-form-label">Select Topic</label>
+                  <div class="col-sm-10">
+                    <select asp-for="TopicId" class="form-select" asp-items="@(new SelectList(ViewBag.Topics, "Id", "Name"))" >
+                      <option selected>Open Topic select menu</option>
+                    </select>
+                  </div>
+                  <span asp-validation-for="TopicId"></span>
+                </div>
+
+                 <div class="row mb-3">
+                  <label asp-for="file" class="col-sm-2 col-form-label">File Upload</label>
+                  <div class="col-sm-10">
+                    <input asp-for="file" class="form-control" type="file">
+                  </div>
+                  <span asp-validation-for="file"></span>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                  </div>
+                </div>
+
+              </form><!-- End General Form Elements -->
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>

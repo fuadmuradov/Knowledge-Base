@@ -1,0 +1,61 @@
+﻿@model List<PublicationGetDto>
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Publication</h5>
+                 
+                  <a  asp-action="Create" asp-controller="Home" asp-area="admin">   <button type="button" class="btn btn-primary" >
+                 Add new Publication
+                </button></a>
+                    <!-- Table with stripped rows -->
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Author Name</th>
+                                <th scope="col">Country Name</th>
+                                <th scope="col">Organization Name</th>
+                                <th scope="col">Document Type</th>
+                                <th scope="col">Topic Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.Id</th>
+                                    <td><a href="~/files/@item.FilePath" target="_blank"> @item.FileName</a></td>
+                                    <td>@item.Author.Name</td>
+                                    <td>@item.Country.Name</td>
+                                    <td>@item.Organization.Name</td>
+                                    <td>@item.DocumentType.TypeName</td>
+                                    <td>@item.Topic.Name</td>
+                                    <td>
+                                        <a asp-action="PublicationDelete" asp-controller="Home" asp-area="admin" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')"><i class="bi bi-eraser-fill"></i></a>
+                                        <a class="btnEdit" asp-action="Update" asp-controller="Home" asp-area="admin" asp-route-id="@item.Id"><i class="bi bi-credit-card-2-front"></i></a>
+                                        <a class="btnEdit" asp-action="TagUpdate" asp-controller="Home" asp-area="admin" asp-route-id="@item.Id"><i class="bi bi-bookmark-fill"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+

@@ -1,0 +1,217 @@
+﻿@model PublicationVM
+@{
+    ViewData["Title"] = "P2pLoan";
+}
+
+@section Css{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+}
+    <!-- Catalog Sidebar - start -->
+    <div class="section-sb">
+
+        <!-- Filter - start -->
+        <div class="section-filter">
+            <button id="section-filter-toggle" class="section-filter-toggle" data-close="Hide Filter" data-open="Show Filter">
+                <span>Show Filter</span> <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="section-filter-cont">
+
+                <div class="section-filter-item">
+                    <p class="section-filter-ttl">Author <i class="fa fa-angle-down"></i></p>
+                    <div class="section-filter-fields">
+                        @foreach (var item in Model.Authors)
+                    {
+                        string authorinputId = "section-filter-checkbox2-" + item.Id.ToString();
+                        <p class="section-filter-field">
+                            <input id="@authorinputId" name="author" value="@item.Id" type="checkbox">
+                            <label class="section-filter-checkbox" for="@authorinputId">@item.Name</label>
+                        </p>
+                    }
+                </div>
+            </div>
+            <div class="section-filter-item opened">
+                <p class="section-filter-ttl">Organization <i class="fa fa-angle-down"></i></p>
+                <div class="section-filter-fields">
+                    @foreach (var item in Model.Organizations)
+                    {
+                        string organizationInputId = "section-filter-checkbox3-" + item.Id.ToString();
+
+                        <p class="section-filter-field">
+                            <input id="@organizationInputId" value="@item.Id" name="organization" type="checkbox">
+                            <label class="section-filter-checkbox" for="@organizationInputId">@item.Name</label>
+                        </p>
+                    }
+
+                </div>
+            </div>
+            <div class="section-filter-item opened">
+                <p class="section-filter-ttl">Countries <i class="fa fa-angle-down"></i></p>
+                <div class="section-filter-fields">
+                    <div class="section-filter-select">
+                        <select data-placeholder="select country" class="chosen-select" id="country" multiple>
+                            @foreach (var country in Model.Countries)
+                            {
+                                <option value="@country.Id">@country.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="section-filter-item">
+                <p class="section-filter-ttl">Document Type <i class="fa fa-angle-down"></i></p>
+                <div class="section-filter-fields">
+                    @foreach (var doc in Model.DocumentTypes)
+                    {
+                        string docTypeId = "section-filter-checkbox4-" + doc.Id.ToString();
+                        <p class="section-filter-field">
+                            <input id="@docTypeId" value="@doc.Id" name="documentType" type="checkbox">
+                            <label class="section-filter-checkbox" for="@docTypeId">@doc.TypeName</label>
+                        </p>
+                    }
+
+
+                </div>
+            </div>
+            <div class="section-filter-item">
+                <p class="section-filter-ttl">Topic <i class="fa fa-angle-down"></i></p>
+                <div class="section-filter-fields">
+                    @foreach (var topic in Model.Topics)
+                    {
+                        string topicId = "section-filter-checkbox5-" + topic.Id.ToString();
+                        <p class="section-filter-field">
+                            <input id="@topicId" value="@topic.Id" name="topic" type="checkbox">
+                            <label class="section-filter-checkbox" for="@topicId">@topic.Name</label>
+                        </p>
+
+                    }
+
+                </div>
+            </div>
+            <div class="section-filter-buttons">
+                <input class="btn btn-themes" id="set_filter" name="set_filter" value="Apply filter" type="button">
+               <a asp-action="Index" asp-controller="home" > <input asp-controller="home" asp-action="Index" class="btn btn-link" id="del_filter" name="del_filter" value="Reset" type="button"></a>
+            </div>
+
+
+            <div class="section-filter-item opened">
+                <p class="section-filter-ttl">Tags <i class="fa fa-angle-down"></i></p>
+                 <div class="section-filter-fields">
+                <div class="section-filter-buttons">
+                    @*                <input class="btn btn-themes" id="set_filter" name="set_filter" value="Apply filter" type="button">
+                    *@
+                    @foreach (var item in Model.Tags)
+                    {
+                        <a onclick='tagload(@item.Id)'> <input class="btn btn-link" id="del_filter" name="del_filter" value="@item.Name" type="button"></a>
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Filter - end -->
+
+</div>
+<!-- Catalog Sidebar - end -->
+<!-- Catalog Items | Gallery V2 - start -->
+<div class="section-cont">
+
+    <div id="ListId" class="prod-items section-items prod-items-galimg">
+
+        @await Html.PartialAsync("_ListPartialView", Model.Publications)
+
+
+    </div>
+</div>
+<!-- Catalog Items | Gallery V2 - start -->
+@section Scripts{
+
+
+    <script>
+        document.getElementById('set_filter').onclick = function() {
+            var checkboxes = document.getElementsByName('author');
+            var authorList = [];
+            for (var checkbox of checkboxes) {
+                if (checkbox.checked) {
+                    // console.log(checkbox.value + ' ');
+                    authorList.push(checkbox.value);
+                }
+            }
+            var organizationCheckboxes = document.getElementsByName('organization');
+            var organizationList = [];
+            for (var checkbox of organizationCheckboxes) {
+                if (checkbox.checked) {
+                    // console.log(checkbox.value + ' ');
+                    organizationList.push(checkbox.value);
+                }
+            }
+            var countryList = [];
+            for (var option of document.getElementById('country').options) {
+                if (option.selected) {
+                    // console.log(option.value)
+                    countryList.push(option.value)
+                }
+            }
+            var documentCheckboxes = document.getElementsByName('documentType');
+            var documentList = [];
+            for (var checkbox of documentCheckboxes) {
+                if (checkbox.checked) {
+                    // console.log(checkbox.value + ' ');
+                    documentList.push(checkbox.value);
+                }
+            }
+            var topicCheckboxes = document.getElementsByName('topic');
+            var topicList = [];
+            for (var checkbox of topicCheckboxes) {
+                if (checkbox.checked) {
+                    topicList.push(checkbox.value);
+                }
+            }
+            console.log(authorList)
+            const authorListNum = authorList.map(str => {
+                return Number(str)
+            })
+            const organizationListNum = organizationList.map(str => {
+                return Number(str)
+            })
+            const countryListNum = countryList.map(str => {
+                return Number(str)
+            })
+            const documentListNum = documentList.map(str => {
+                return Number(str)
+            })
+            const topicListNum = topicList.map(str => {
+                return Number(str)
+            })
+
+            $("#ListId").load("/Home/GetList", {
+                authorList: authorListNum,
+                organizationList: organizationListNum,
+                countryList: countryListNum,
+                documentList: documentListNum,
+                topicList: topicListNum
+            }, function() {  $('#example').DataTable(); })
+    
+        }
+    </script>
+
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+
+           
+        });
+
+       async function tagload(tagId) {
+                console.log(tagId);
+                 $("#ListId").load("/Home/GetTagList", {
+                tagId: tagId
+                
+            }, function() {  $('#example').DataTable(); })
+            }
+    </script>
+    
+
+}
